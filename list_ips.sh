@@ -8,4 +8,9 @@ if [ -n "$API_SERVER" ]; then
    $API_SERVER_PARAMETER="--server=$API_SERVER"
 fi
 
-kubectl $API_SERVER_PARAMETER get no -o=json|grep '"address":'|uniq|awk '{print $2}'
+nodes=`kubectl $API_SERVER_PARAMETER get no -o=json|grep '"address":'|uniq|awk '{print $2}'`
+
+for node in $nodes; do
+      str="${node//\"}"
+      echo $str
+    done
